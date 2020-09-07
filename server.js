@@ -1,3 +1,4 @@
+require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const ejs = require("ejs");
@@ -10,7 +11,7 @@ const controller = require("./app/controllers/controller");
 
 const app = express();
 const session = require("express-session");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
 app.set("views", path.join(__dirname, ""));
 app.set("view engine", "ejs");
