@@ -1,0 +1,42 @@
+body {
+    background-image: url("img/landing-page-desktop.png");
+    background-size: cover;
+  }
+  
+  html,
+  body {
+    text-align: center;
+    min-height: 100%;
+  }
+  
+  .my-card {
+    margin-top: 20px;
+    width: 700px;
+    max-width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  #my-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .option {
+    margin-top: 20px;
+    width: 500px;
+    max-width: 80vw;
+  }
+  
+  #main-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  

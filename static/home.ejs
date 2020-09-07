@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+    <script src="index.js"></script>
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+    <title>Vote CSUI 20XX </title>
+    <!-- <link rel="icon" href="templates/img/icon.jpg"> -->
+</head>
+
+<body>
+    <div id="my-container">
+        <div class="card my-card">
+            <div class="card-body">
+                <form action="/logout" method="GET">
+                    Masuk sebagai <b> <%= user.username %> </b> 
+                    <input type="submit" class="btn btn-sm btn-outline-danger" value="Keluar">
+                </form>
+            </div>
+        </div>
+        <div class="card my-card">
+            <div class="card-body" id="main-card">
+                <% if(user.namaAngkatanId == null){ %>
+                    <h3>Pemilihan Nama Angkatan Fasilkom 20XX</h3>  
+                    <% calonNama.forEach(function(namaAngkatan) { %>                    
+                        <button class="open-modal btn btn-info option" data-toggle="modal" data-id=<%= namaAngkatan.id %> data-target="#myModal" id=<%= namaAngkatan.name %>>
+                            <b> <%= namaAngkatan.name %> </b>
+                        </button>
+                    <% }); %>
+                <% } else{ %>  
+                    <h5>Terima kasih sudah memilih 😊</h5>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- <div class="card my-card">
+            <div class="card-body" id="main-card">
+                <h5>Statistik Pemilih (jumlah: <?php echo $total; ?>)</h5>  
+                <?php
+                    foreach ($analytics as $key => $value) {
+                        echo $key.": ".$value."<br/>";
+                    }
+                ?>
+            </div>
+        </div> -->
+    </div>
+
+
+    <form action="/" method="POST" id="formId">
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Konfirmasi</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        Yakin pilih <b><span id="choice"> </span></b> ?
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="Iya">
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Tidak</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+</body>
+</html>
