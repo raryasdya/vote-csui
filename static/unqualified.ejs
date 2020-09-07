@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+    <script src="index.js"></script>
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+    <title>Vote CSUI 20XX </title>
+    <!-- <link rel="icon" href="templates/img/icon.jpg"> -->
+</head>
+
+<body>
+    <div id="my-container">
+        <div class="card my-card">
+            <div class="card-body">
+                <form action="/logout" method="GET">
+                    Masuk sebagai <b> <%= user.name %> </b> 
+                    <input type="submit" class="btn btn-sm btn-outline-danger" value="Keluar">
+                </form>
+            </div>
+        </div>
+
+        <div class="card my-card">
+            <div class="card-body" id="main-card">
+                Maaf, hanya untuk mahasiswa Fasilkom angkatan 2019 ke bawah :D
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -19,7 +19,7 @@
         <div class="card my-card">
             <div class="card-body">
                 <form action="/logout" method="GET">
-                    Masuk sebagai <b> <%= user.username %> </b> 
+                    Masuk sebagai <b> <%= user.name %> </b> 
                     <input type="submit" class="btn btn-sm btn-outline-danger" value="Keluar">
                 </form>
             </div>
@@ -39,18 +39,20 @@
             </div>
         </div>
 
-        <!-- <div class="card my-card">
+        <div class="card my-card">
             <div class="card-body" id="main-card">
-                <h5>Statistik Pemilih (jumlah: <?php echo $total; ?>)</h5>  
-                <?php
-                    foreach ($analytics as $key => $value) {
-                        echo $key.": ".$value."<br/>";
-                    }
-                ?>
-            </div>
-        </div> -->
+                <% if(dataPemilih.length == 0){ %>
+                    Belum ada data statistik pemilih
+                
+                    <% dataPemilih.forEach(function(jumlahPemilih) { %>                    
+                        <%= jumlahPemilih.year %> : <%= jumlahPemilih.total %> <br>
+                    <% }); %>
+                    </div>
+                <% } else{ %>  
+                    </div><div id="chartContainer" class="mb-4" style="height: 300px; width: 100%;"></div>
+                <% } %>
+        </div>
     </div>
-
 
     <form action="/" method="POST" id="formId">
         <div class="modal" id="myModal">
@@ -73,6 +75,7 @@
             </div>
         </div>
     </form>
-    
+
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>

@@ -3,24 +3,16 @@ const NamaAngkatan = db.namaAngkatan;
 const User = db.user;
 
 exports.createNamaAngkatan = (namaAngkatan) => {
-  try {
-    return NamaAngkatan.findOrCreate({
-      where: { name: namaAngkatan },
-    });
-  } catch (err) {
-    console.log(">> Error while creating model namaAngkatan: ", err);
-  }
+  return NamaAngkatan.findOrCreate({
+    where: { name: namaAngkatan },
+  });
 };
 
 exports.createOrGetUser = (user) => {
-  try {
-    return User.findOrCreate({
-      where: { username: user.username },
-      defaults: { year: "20" + user.npm.slice(0, 2) },
-    });
-  } catch (err) {
-    console.log(">> Error while creating model user: ", err);
-  }
+  return User.findOrCreate({
+    where: { npm: user.npm },
+    defaults: { year: "20" + user.npm.slice(0, 2), name: user.name },
+  });
 };
 
 exports.findAllNamaAngkatan = () => {
@@ -30,14 +22,6 @@ exports.findAllNamaAngkatan = () => {
 exports.findAllVoters = () => {
   return NamaAngkatan.findAll({
     include: ["users"],
-  }).then((listNamaAngkatan) => {
-    for (const namaAngkatan of listNamaAngkatan) {
-      // if(namaAngkatan.id == 1) {
-      // console.log('-------------------------------------------------')
-      console.log(namaAngkatan.users.length);
-      // }
-    }
-    return listNamaAngkatan;
   });
 };
 
@@ -46,15 +30,16 @@ exports.voteNamaAngkatan = async (user, namaAngkatanId) => {
   await user.save();
 };
 
-exports.countVoters = (namaAngkatan) => {
-  return NamaAngkatan.findByPk(namaAngkatan.id, {
-    include: ["users"],
-  })
-    .then((result) => {
-      // console.log(result)
-      return result.users.length;
-    })
-    .catch((err) => {
-      console.log(">> Error while count voters: ", err);
-    });
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
+exports.groupYear = () => {
+  return User.findAll({
+    where: {
+      namaAngkatanId: {
+        [Op.ne]: null,
+      },
+    },
+    attributes: [[Sequelize.fn("count", "year"), "total"], "year"],
+    group: ["year"],
+  });
 };
