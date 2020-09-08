@@ -16,7 +16,7 @@ app.set("views", path.join(__dirname, ""));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/static"));
 
-var sso = new SSO({
+const sso = new SSO({
   url: "http://localhost:3000", //required
   session_sso: "sso_user", // defaults to sso_user
 });
@@ -37,16 +37,15 @@ app.listen(PORT, () => {
 });
 
 app.get("/", async (req, res) => {
-  const user_sso = req.sso_user;
-  if (user_sso) {
-    const role = user_sso.role;
-    const faculty = user_sso.faculty;
-    const year = parseInt(user_sso.npm.slice(0, 2));
+  const { sso_user: userSSO } = req;
+  if (userSSO) {
+    const { role, faculty } = userSSO;
+    const year = parseInt(userSSO.npm.slice(0, 2));
 
     if (role != "mahasiswa" || faculty != "ILMU KOMPUTER" || year > 20) {
-      res.render("static/unqualified", { user: user_sso });
+      res.render("static/unqualified", { user: userSSO });
     } else {
-      const [user, created] = await controller.createOrGetUser(user_sso);
+      const [user, created] = await controller.createOrGetUser(userSSO);
       const calonNama = await controller.findAllNamaAngkatan();
 
       let dataPemilih = await controller.groupYear();
@@ -73,53 +72,47 @@ app.get("/logout", sso.logout);
 
 // req.sso_user vote namaAngkatan with id angkatanId
 app.post("/:angkatanId", async (req, res) => {
-  var user_sso = req.sso_user;
-  var [user, created] = await controller.createOrGetUser(user_sso);
+  const { sso_user: userSSO } = req;
+  const [user, created] = await controller.createOrGetUser(userSSO);
   await controller.voteNamaAngkatan(user, req.params.angkatanId);
   res.redirect("/");
 });
 
 // get voters statistic for pie chart
 app.get("/stats", async (req, res) => {
-  let dataPemilih = await controller.groupYear();
-  dataPemilih = JSON.parse(JSON.stringify(dataPemilih));
+  const dataPemilih = await controller.groupYear();
 
-  for (pemilih of dataPemilih) {
-    pemilih.y = parseInt(pemilih.total);
-    pemilih.label = pemilih.year.toString();
-    delete pemilih.total;
-    delete pemilih.year;
-  }
-
-  res.json(dataPemilih);
+  res.json(
+    dataPemilih.map(({ total, year }) => ({
+      y: parseInt(total),
+      label: year.toString(),
+    }))
+  );
 });
 
 // get result statistic for pie chart
 app.get("/result-data", async (req, res) => {
-  let hasil = await controller.findAllVoters();
-  hasil = JSON.parse(JSON.stringify(hasil));
+  const hasil = await controller.groupNamaAngkatan();
 
-  for (namaAngkatan of hasil) {
-    namaAngkatan.y = namaAngkatan.users.length;
-    namaAngkatan.label = namaAngkatan.name;
-    delete namaAngkatan.name;
-    delete namaAngkatan.users;
-  }
-
-  res.json(hasil);
+  res.json(
+    hasil.map(({ total, namaAngkatan }) => ({
+      y: total,
+      label: namaAngkatan.name,
+    }))
+  );
 });
 
 // show result for ADMIN_SSO only
 app.get("/result", async (req, res) => {
-  const user_sso = req.sso_user;
-  if (user_sso) {
-    if (user_sso.username == process.env.ADMIN_SSO) {
+  const { sso_user: userSSO } = req;
+  if (userSSO) {
+    if (userSSO.username === process.env.ADMIN_SSO) {
       res.render("static/result", {
-        user: user_sso,
+        user: userSSO,
       });
     } else {
       res.status(403).render("static/notAdmin", {
-        user: user_sso,
+        user: userSSO,
       });
     }
   } else {

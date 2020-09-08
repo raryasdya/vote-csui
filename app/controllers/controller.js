@@ -19,13 +19,6 @@ exports.findAllNamaAngkatan = () => {
   return NamaAngkatan.findAll();
 };
 
-exports.findAllVoters = () => {
-  return NamaAngkatan.findAll({
-    attributes: ["name"],
-    include: ["users"],
-  });
-};
-
 exports.voteNamaAngkatan = async (user, namaAngkatanId) => {
   user.namaAngkatanId = namaAngkatanId;
   await user.save();
@@ -42,5 +35,21 @@ exports.groupYear = () => {
     },
     attributes: [[Sequelize.fn("count", "year"), "total"], "year"],
     group: ["year"],
+    raw: true,
+  });
+};
+
+exports.groupNamaAngkatan = () => {
+  return User.findAll({
+    where: {
+      namaAngkatanId: {
+        [Op.ne]: null,
+      },
+    },
+    attributes: [[Sequelize.fn("count", "namaAngkatanId"), "total"]],
+    group: ["namaAngkatanId", "namaAngkatan.id"],
+    include: ["namaAngkatan"],
+    raw: true,
+    nest: true,
   });
 };
