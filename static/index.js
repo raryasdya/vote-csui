@@ -2,7 +2,7 @@ const run = async () => {
   $.get("/stats", function (data) {
     console.log(data);
     if (data.length != 0) {
-      var chart = new CanvasJS.Chart("chartContainer", {
+      const chart = new CanvasJS.Chart("chartContainer", {
         animationEnabled: true,
         title: {
           text: "Statistik Pemilih",
