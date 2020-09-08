@@ -47,11 +47,7 @@ app.get("/", async (req, res) => {
     } else {
       const [user, created] = await controller.createOrGetUser(userSSO);
       const calonNama = await controller.findAllNamaAngkatan();
-
-      let dataPemilih = await controller.groupYear();
-      dataPemilih = JSON.parse(JSON.stringify(dataPemilih));
-
-      console.log(dataPemilih);
+      const dataPemilih = await controller.groupYear();
 
       res.render("static/home", {
         user: user,

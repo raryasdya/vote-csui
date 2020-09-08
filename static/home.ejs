@@ -40,16 +40,12 @@
         </div>
 
         <div class="card my-card">
-            <div class="card-body" id="main-card">
                 <% if(dataPemilih.length == 0){ %>
-                    Belum ada data statistik pemilih
-                
-                    <% dataPemilih.forEach(function(jumlahPemilih) { %>                    
-                        <%= jumlahPemilih.year %> : <%= jumlahPemilih.total %> <br>
-                    <% }); %>
+                    <div class="card-body" id="main-card"></div>
+                        Belum ada data statistik pemilih
                     </div>
                 <% } else{ %>  
-                    </div><div id="chartContainer" class="mb-4" style="height: 300px; width: 100%;"></div>
+                    <div id="chartContainer" class="mt-4" style="height: 300px; width: 100%;"></div>
                 <% } %>
         </div>
     </div>
