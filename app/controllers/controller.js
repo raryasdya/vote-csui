@@ -21,6 +21,7 @@ exports.findAllNamaAngkatan = () => {
 
 exports.findAllVoters = () => {
   return NamaAngkatan.findAll({
+    attributes: ["name"],
     include: ["users"],
   });
 };

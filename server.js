@@ -71,6 +71,7 @@ app.get("/login", sso.login, async (req, res) => {
 
 app.get("/logout", sso.logout);
 
+// req.sso_user vote namaAngkatan with id angkatanId
 app.post("/:angkatanId", async (req, res) => {
   var user_sso = req.sso_user;
   var [user, created] = await controller.createOrGetUser(user_sso);
@@ -78,6 +79,7 @@ app.post("/:angkatanId", async (req, res) => {
   res.redirect("/");
 });
 
+// get voters statistic for pie chart
 app.get("/stats", async (req, res) => {
   let dataPemilih = await controller.groupYear();
   dataPemilih = JSON.parse(JSON.stringify(dataPemilih));
@@ -90,6 +92,39 @@ app.get("/stats", async (req, res) => {
   }
 
   res.json(dataPemilih);
+});
+
+// get result statistic for pie chart
+app.get("/result-data", async (req, res) => {
+  let hasil = await controller.findAllVoters();
+  hasil = JSON.parse(JSON.stringify(hasil));
+
+  for (namaAngkatan of hasil) {
+    namaAngkatan.y = namaAngkatan.users.length;
+    namaAngkatan.label = namaAngkatan.name;
+    delete namaAngkatan.name;
+    delete namaAngkatan.users;
+  }
+
+  res.json(hasil);
+});
+
+// show result for ADMIN_SSO only
+app.get("/result", async (req, res) => {
+  const user_sso = req.sso_user;
+  if (user_sso) {
+    if (user_sso.username == process.env.ADMIN_SSO) {
+      res.render("static/result", {
+        user: user_sso,
+      });
+    } else {
+      res.status(403).render("static/notAdmin", {
+        user: user_sso,
+      });
+    }
+  } else {
+    res.redirect("/login");
+  }
 });
 
 const run = async () => {
