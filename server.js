@@ -12,6 +12,10 @@ const app = express();
 const session = require("express-session");
 const PORT = process.env.PORT || 8000;
 
+// minimum year to vote
+const date = new Date();
+const minimumYear = date.getFullYear() - 1;
+
 app.set("views", path.join(__dirname, ""));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/static"));
@@ -31,7 +35,7 @@ app.use(
 
 app.use(sso.middleware);
 
-const userMiddleware = function (req, res, next) {
+const userMiddleware = (req, res, next) => {
   const { sso_user: userSSO } = req;
   if (!userSSO) {
     return res.redirect("/login");
@@ -39,8 +43,6 @@ const userMiddleware = function (req, res, next) {
 
   const { role, faculty } = userSSO;
   const year = 2000 + parseInt(userSSO.npm.slice(0, 2));
-  const date = new Date();
-  const minimumYear = date.getFullYear() - 1;
 
   if (
     role !== "mahasiswa" ||
@@ -49,18 +51,19 @@ const userMiddleware = function (req, res, next) {
   ) {
     return res.render("static/unqualified", {
       user: userSSO,
-      year: minimumYear,
+      minimumYear,
     });
   }
 
   next();
 };
 
-const adminMiddleware = function (req, res, next) {
+const adminMiddleware = (req, res, next) => {
   const { sso_user: userSSO } = req;
   if (userSSO.username !== process.env.ADMIN_SSO) {
     return res.status(403).render("static/notAdmin", {
       user: userSSO,
+      minimumYear,
     });
   }
 
@@ -78,7 +81,12 @@ app.get("/", userMiddleware, async (req, res) => {
   const calonNama = await controller.findAllNamaAngkatan();
   const dataPemilih = await controller.groupYear();
 
-  res.render("static/home", { user, calonNama, dataPemilih });
+  res.render("static/home", {
+    user,
+    calonNama,
+    dataPemilih,
+    minimumYear,
+  });
 });
 
 app.get("/login", sso.login, async (req, res) => {
@@ -124,6 +132,7 @@ app.get("/result", userMiddleware, adminMiddleware, async (req, res) => {
   const { sso_user: userSSO } = req;
   res.render("static/result", {
     user: userSSO,
+    minimumYear,
   });
 });
 
@@ -134,8 +143,8 @@ const run = async () => {
   await controller.createNamaAngkatan("Maung");
 };
 
-db.sequelize.sync().then(() => {
-  // db.sequelize.sync({ force: true }).then(() => {
+// db.sequelize.sync().then(() => {
+db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db.");
   run();
 });
