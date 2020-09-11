@@ -162,6 +162,5 @@ const run = async () => {
 };
 
 db.sequelize.sync().then(() => {
-  console.log("Drop and re-sync db.");
   run();
 });
