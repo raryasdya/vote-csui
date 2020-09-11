@@ -18,6 +18,8 @@ var { deadlineVoting, calonNamaAngkatan } = JSON.parse(
 // minimum year to vote
 const date = new Date();
 const minimumYear = date.getFullYear() - 1;
+
+// Set deadline for the voting period
 const deadline = new Date(deadlineVoting);
 
 app.set("views", path.join(__dirname, ""));
