@@ -1,6 +1,5 @@
 const run = async () => {
   $.get("/stats", function (data) {
-    console.log(data);
     if (data.length != 0) {
       const chart = new CanvasJS.Chart("chartContainer", {
         animationEnabled: true,
@@ -21,7 +20,7 @@ const run = async () => {
   });
 };
 
-window.onload = function () {
+window.onload = () => {
   run();
 };
 

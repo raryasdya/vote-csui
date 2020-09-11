@@ -1,11 +1,13 @@
+const date = new Date();
+const year = date.getFullYear();
+
 const run = async () => {
   $.get("/result-data", function (data) {
-    console.log(data);
     if (data.length != 0) {
       const chart = new CanvasJS.Chart("chartContainer", {
         animationEnabled: true,
         title: {
-          text: "Hasil Pemilihan Nama Angkatan CSUI 20XX",
+          text: "Hasil Pemilihan Nama Angkatan CSUI " + year,
         },
         data: [
           {
@@ -21,6 +23,6 @@ const run = async () => {
   });
 };
 
-window.onload = function () {
+window.onload = () => {
   run();
 };

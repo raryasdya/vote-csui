@@ -24,10 +24,11 @@
                 </form>
             </div>
         </div>
+        
         <div class="card my-card">
             <div class="card-body" id="main-card">
                 <% if(user.namaAngkatanId == null){ %>
-                    <h3>Pemilihan Nama Angkatan Fasilkom 20XX</h3>  
+                    <h3>Pemilihan Nama Angkatan Fasilkom <%= minimumYear+1 %></h3>  
                     <% calonNama.forEach(function(namaAngkatan) { %>                    
                         <button class="open-modal btn btn-info option" data-toggle="modal" data-id=<%= namaAngkatan.id %> data-target="#myModal" id=<%= namaAngkatan.name %>>
                             <b> <%= namaAngkatan.name %> </b>
@@ -40,13 +41,13 @@
         </div>
 
         <div class="card my-card">
-                <% if(dataPemilih.length == 0){ %>
-                    <div class="card-body" id="main-card">
-                        Belum ada data statistik pemilih
-                    </div>
-                <% } else{ %>  
-                    <div id="chartContainer" class="mt-4" style="height: 300px; width: 100%;"></div>
-                <% } %>
+            <% if(dataPemilih.length == 0){ %>
+                <div class="card-body" id="main-card">
+                    Belum ada data statistik pemilih
+                </div>
+            <% } else{ %>  
+                <div id="chartContainer" class="mt-4" style="height: 300px; width: 100%;"></div>
+            <% } %>
         </div>
     </div>
 
@@ -60,7 +61,7 @@
                     </div>
                     
                     <div class="modal-body">
-                        Yakin pilih <b><span id="choice"> </span></b> ?
+                        Yakin pilih <b><span id="choice"> </span></b>?
                     </div>
                     
                     <div class="modal-footer">

@@ -5,16 +5,20 @@ const SSO = require("sso-ui");
 const db = require("./app/models");
 const controller = require("./app/controllers/controller");
 
-// const bodyParser = require("body-parser");
-// const cors = require("cors");
-
 const app = express();
 const session = require("express-session");
 const PORT = process.env.PORT || 8000;
 
+// read data from JSON
+var fs = require("fs");
+var { deadlineVoting, calonNamaAngkatan } = JSON.parse(
+  fs.readFileSync("serverData.json", "utf8")
+);
+
 // minimum year to vote
 const date = new Date();
 const minimumYear = date.getFullYear() - 1;
+const deadline = new Date(deadlineVoting);
 
 app.set("views", path.join(__dirname, ""));
 app.set("view engine", "ejs");
@@ -55,11 +59,23 @@ const userMiddleware = (req, res, next) => {
     });
   }
 
+  const currentDate = new Date();
+  if (currentDate > deadline) {
+    return res.render("static/closed", {
+      user: userSSO,
+      minimumYear,
+    });
+  }
+
   next();
 };
 
 const adminMiddleware = (req, res, next) => {
   const { sso_user: userSSO } = req;
+  if (!userSSO) {
+    return res.redirect("/login");
+  }
+
   if (userSSO.username !== process.env.ADMIN_SSO) {
     return res.status(403).render("static/notAdmin", {
       user: userSSO,
@@ -116,7 +132,7 @@ app.get("/stats", userMiddleware, async (req, res) => {
 });
 
 // get result statistic for pie chart
-app.get("/result-data", userMiddleware, adminMiddleware, async (req, res) => {
+app.get("/result-data", adminMiddleware, async (req, res) => {
   const hasil = await controller.groupNamaAngkatan();
 
   res.json(
@@ -128,19 +144,21 @@ app.get("/result-data", userMiddleware, adminMiddleware, async (req, res) => {
 });
 
 // show result for ADMIN_SSO only
-app.get("/result", userMiddleware, adminMiddleware, async (req, res) => {
+app.get("/result", adminMiddleware, async (req, res) => {
   const { sso_user: userSSO } = req;
+  const hasil = await controller.groupNamaAngkatan();
+
   res.render("static/result", {
     user: userSSO,
     minimumYear,
+    hasil,
   });
 });
 
 const run = async () => {
-  await controller.createNamaAngkatan("Omega");
-  await controller.createNamaAngkatan("Tarung");
-  await controller.createNamaAngkatan("Quanta");
-  await controller.createNamaAngkatan("Maung");
+  for (name of calonNamaAngkatan) {
+    await controller.createNamaAngkatan(name);
+  }
 };
 
 // db.sequelize.sync().then(() => {
@@ -148,15 +166,3 @@ db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db.");
   run();
 });
-
-// var corsOptions = {
-//   origin: "http://localhost:8081"
-// };
-
-// app.use(cors(corsOptions));
-
-// // parse requests of content-type - application/json
-// app.use(bodyParser.json());
-
-// // parse requests of content-type - application/x-www-form-urlencoded
-// app.use(bodyParser.urlencoded({ extended: true }));

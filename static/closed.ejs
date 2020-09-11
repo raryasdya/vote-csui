@@ -7,7 +7,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
-    <script src="js/result.js"></script>
     <link rel="stylesheet" type="text/css" href="css/index.css">
 
     <title>Vote CSUI <%= minimumYear+1 %> </title>
@@ -19,23 +18,17 @@
         <div class="card my-card">
             <div class="card-body">
                 <form action="/logout" method="GET">
-                    Masuk sebagai Admin <b> <%= user.name %> </b> 
+                    Masuk sebagai <b> <%= user.name %> </b> 
                     <input type="submit" class="btn btn-sm btn-outline-danger" value="Keluar">
                 </form>
             </div>
         </div>
 
         <div class="card my-card">
-            <% if(hasil.length == 0){ %>
-                <div class="card-body" id="main-card">
-                    Belum ada hasil yang dapat ditampilkan
-                </div>
-            <% } else{ %>  
-                <div id="chartContainer" class="mt-4" style="height: 300px; width: 100%;"></div>
-            <% } %>
+            <div class="card-body" id="main-card">
+                Maaf, waktu pemilihan nama angkatan telah berakhir:)
+            </div>
         </div>
     </div>
-
-    <script src="js/canvasjs.min.js"></script>
 </body>
 </html>
