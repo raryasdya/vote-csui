@@ -25,7 +25,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/static"));
 
 const sso = new SSO({
-  url: process.env.URL || "http://localhost:3000", //required
+  url: process.env.URL || "http://localhost:3000", // required
   session_sso: "sso_user", // defaults to sso_user
 });
 
