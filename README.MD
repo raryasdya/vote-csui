@@ -127,6 +127,6 @@ File `.env` merupakan file yang berisi _environment variable_ yang akan digunaka
 
 ## Dokumentasi
 
-![Screenshot-1](https://imgur.com/CMGE3iQ)
+![Screenshot-1](https://i.imgur.com/CMGE3iQ.png)
 
 ## Lisensi
