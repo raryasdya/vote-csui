@@ -125,4 +125,8 @@ File `.env` merupakan file yang berisi _environment variable_ yang akan digunaka
 
      $ npm run dev
 
+## Dokumentasi
+
+![Screenshot-1](https://imgur.com/CMGE3iQ)
+
 ## Lisensi
