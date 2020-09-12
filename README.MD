@@ -32,6 +32,9 @@ Jika sekarang adalah tahun **`n`**, maka :
 ## Persiapan Awal
 
 1. _Clone_ repositori ke komputer
+   ```
+   $ git clone https://github.com/raryasdya/vote-csui vote-csui
+   ```
 2. Atur _deadine voting_ dan pilihan calon nama angkatan
 
    - Buka _file_ `serverData.json`
@@ -51,27 +54,31 @@ Jika sekarang adalah tahun **`n`**, maka :
 3. Atur _icon_ dan _background image_
    - Letakkan _file_ untuk _icon_ dengan nama _file_ `icon.png` pada _directory_ `./static/img/`
    - Letakkan _file_ untuk _background image_ dengan nama _file_ `background-desktop.png` pada _directory_ `./static/img/`
-   - Struktur _folder_ akan menjadi seperti berikut :
-     ```
-     vote-csui
-     ├── app
-     |   └──	...
-     ├── static
-     |   ├── css
-     |   |	└── ...
-     |   ├── img
-     |   |	├── icon.png
-     |   |	└── background-desktop.png
-     |   ├── js
-     |   |	└── ...
-     |   └──	...
-     └── ...
-     ```
-4. _Add_ repositori
+4. Pastikan struktur _folder_ adalah seperti berikut :
+   ```
+   vote-csui
+   ├── app
+   |   ├── controllers
+   |   |   └── ...
+   |   └── models
+   |       └── ...
+   ├── static
+   |   ├── css
+   |   |	└── ...
+   |   ├── img
+   |   |	├── icon.png
+   |   |	└── background-desktop.png
+   |   ├── js
+   |   |	└── ...
+   |   └──	...
+   ├── serverData.json
+   └── ...
+   ```
+5. _Add_ repositori
    ```
    $ git add .
    ```
-5. _Commit_ repositori
+6. _Commit_ repositori
    ```
    $ git commit -m "Update data"
    ```
@@ -92,12 +99,12 @@ Jika sekarang adalah tahun **`n`**, maka :
    ```
    $ heroku addons:create heroku-postgresql:hobby-dev
    ```
-6. Tambahkan _configuration variable_ ADMIN_SS0
+6. Tambahkan _configuration variable_ `ADMIN_SS0`
    ```
    $ heroku config:set ADMIN_SSO=<username_SSO_UI_admin>
    ```
    > _Value_ dari `ADMIN_SSO` adalah _username_ SSO-UI milik seseorang yang akan menjadi admin
-7. Atur _configuration variable_ URL
+7. Atur _configuration variable_ `URL`
    ```
    $ heroku config:set URL=http://<nama_app>.herokuapp.com
    ```
