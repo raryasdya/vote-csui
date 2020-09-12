@@ -10,8 +10,8 @@ const session = require("express-session");
 const PORT = process.env.PORT || 8000;
 
 // read data from JSON
-var fs = require("fs");
-var { deadlineVoting, calonNamaAngkatan } = JSON.parse(
+const fs = require("fs");
+const { deadlineVoting, calonNamaAngkatan } = JSON.parse(
   fs.readFileSync("serverData.json", "utf8")
 );
 
