@@ -94,8 +94,9 @@ Jika sekarang adalah tahun **`n`**, maka :
    ```
 6. Tambahkan _configuration variable_ ADMIN_SS0
    ```
-   $ heroku config:set ADMIN_SSO=<username_SSO-UI_admin>
+   $ heroku config:set ADMIN_SSO=<username_SSO_UI_admin>
    ```
+   > _Value_ dari `ADMIN_SSO` adalah _username_ SSO-UI milik seseorang yang akan menjadi admin
 7. Atur _configuration variable_ URL
    ```
    $ heroku config:set URL=http://<nama_app>.herokuapp.com
