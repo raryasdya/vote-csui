@@ -2,13 +2,20 @@
 
 _Website_ sederhana untuk _voting_ nama angkatan menggunakan SSO UI.
 
+## Dokumentasi
+
+![Screenshot-1](https://i.imgur.com/CMGE3iQ.png)
+![Screenshot-2](https://i.imgur.com/vKjWbwU.png)
+![Screenshot-3](https://i.imgur.com/1kWjcFg.png)
+
 ## Daftar Isi
 
 1. [Penjelasan Singkat](#penjelasan-singkat)
 2. [Persiapan Awal](#persiapan-awal)
 3. [_Deployment_](#deployment)
 4. [Khusus _Contributors_](#khusus-contributors)
-5. [Lisensi](#lisensi)
+5. [_Contributor_](#contributor)
+6. [Lisensi](#lisensi)
 
 ## Penjelasan Singkat
 
@@ -125,8 +132,8 @@ File `.env` merupakan file yang berisi _environment variable_ yang akan digunaka
 
      $ npm run dev
 
-## Dokumentasi
+## _Contributor_
 
-![Screenshot-1](https://i.imgur.com/CMGE3iQ.png)
+Muhammad Indra Ramadhan / [indravb6](https://github.com/indravb6)
 
 ## Lisensi
