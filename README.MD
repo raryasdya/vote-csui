@@ -43,8 +43,8 @@ Jika sekarang adalah tahun **`n`**, maka :
 
      > Perlu diperhatikan bahwa `"maung"` dan `"Maung"` adalah 2 (dua) calon nama angkatan yang berbeda
 
-3. Atur _icon_ dan _background image (optional)_
-   - Letakkan _file_ untuk _icon_ dengan nama _file_ `icon.jpg` pada _directory_ `./static/img/`
+3. Atur _icon_ dan _background image_
+   - Letakkan _file_ untuk _icon_ dengan nama _file_ `icon.png` pada _directory_ `./static/img/`
    - Letakkan _file_ untuk _background image_ dengan nama _file_ `background-desktop.png` pada _directory_ `./static/img/`
    - Struktur _folder_ akan menjadi seperti berikut :
      ```
@@ -55,14 +55,21 @@ Jika sekarang adalah tahun **`n`**, maka :
      |   ├── css
      |   |	└── ...
      |   ├── img
-     |   |	├── icon.jpg
+     |   |	├── icon.png
      |   |	└── background-desktop.png
      |   ├── js
      |   |	└── ...
      |   └──	...
      └── ...
      ```
-4. _Add_ dan _commit_ repositori
+4. _Add_ repositori
+   ```
+   $ git add .
+   ```
+5. _Commit_ repositori
+   ```
+   $ git commit -m "Update data"
+   ```
 
 ## _Deployment_
 
@@ -112,10 +119,10 @@ File `.env` merupakan file yang berisi _environment variable_ yang akan digunaka
 
 #### _Install Dependencies_
 
-     npm install
+     $ npm install
 
 #### Menjalankan Program
 
-     npm run dev
+     $ npm run dev
 
 ## Lisensi
