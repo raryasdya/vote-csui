@@ -13,7 +13,6 @@ _Website_ sederhana untuk _voting_ nama angkatan Fasilkom menggunakan SSO UI.
 3. [_Deployment_](#deployment)
 4. [Petunjuk Khusus _Contributors_](#petunjuk-khusus-contributors)
 5. [_Contributors_](#contributors)
-6. [Lisensi](#lisensi)
 
 ## Penjelasan Singkat
 
