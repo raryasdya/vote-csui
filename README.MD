@@ -1,6 +1,6 @@
 # Vote CSUI
 
-_Website_ sederhana untuk _voting_ nama angkatan menggunakan SSO UI.
+_Website_ sederhana untuk _voting_ nama angkatan Fasilkom menggunakan SSO UI.
 
 ![Screenshot-1](https://i.imgur.com/gm8FxmE.png)
 ![Screenshot-2](https://i.imgur.com/vKjWbwU.png)
@@ -11,8 +11,8 @@ _Website_ sederhana untuk _voting_ nama angkatan menggunakan SSO UI.
 1. [Penjelasan Singkat](#penjelasan-singkat)
 2. [Persiapan Awal](#persiapan-awal)
 3. [_Deployment_](#deployment)
-4. [Khusus _Contributors_](#khusus-contributors)
-5. [_Contributor_](#contributor)
+4. [Petunjuk Khusus _Contributors_](#petunjuk-khusus-contributors)
+5. [_Contributors_](#contributors)
 6. [Lisensi](#lisensi)
 
 ## Penjelasan Singkat
@@ -104,7 +104,7 @@ Jika sekarang adalah tahun **`n`**, maka :
    $ heroku config:set ADMIN_SSO=<username_SSO_UI_admin>
    ```
    > _Value_ dari `ADMIN_SSO` adalah _username_ SSO-UI milik seseorang yang akan menjadi admin
-7. Atur _configuration variable_ `URL`
+7. Tambahkan _configuration variable_ `URL`
    ```
    $ heroku config:set URL=http://<nama_app>.herokuapp.com
    ```
@@ -113,7 +113,7 @@ Jika sekarang adalah tahun **`n`**, maka :
    $ git push heroku master
    ```
 
-## Khusus _Contributors_
+## Petunjuk Khusus _Contributors_
 
 #### Membuat _File_ .env
 
@@ -141,5 +141,3 @@ File `.env` merupakan file yang berisi _environment variable_ yang akan digunaka
 ## _Contributors_
 
 Muhammad Indra Ramadhan / [indravb6](https://github.com/indravb6)
-
-## Lisensi
